@@ -1,16 +1,15 @@
-//package _solution;
-
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.ListIterator;
-import java.util.NoSuchElementException;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.ListIterator;
+import java.util.NoSuchElementException;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 public class BasicDoubleLinkedListTest {
@@ -21,12 +20,12 @@ public class BasicDoubleLinkedListTest {
     DoubleComparator comparatorD;
     CarComparator comparatorCar;
 
-    public Car a=new Car("Ford", "F150", 2005);
-    public Car b=new Car("Jeep", "Renegade", 2005);
-    public Car c=new Car("Honda", "Civic", 2005);
-    public Car d=new Car("Subaru", "Outback", 2005);
-    public Car e=new Car("Chevrolet", "Silverado", 2005);
-    public Car f=new Car("Chrysler", "PTCruiser", 2005);
+    public Car a = new Car("Ford", "F150", 2005);
+    public Car b = new Car("Jeep", "Renegade", 2005);
+    public Car c = new Car("Honda", "Civic", 2005);
+    public Car d = new Car("Subaru", "Outback", 2005);
+    public Car e = new Car("Chevrolet", "Silverado", 2005);
+    public Car f = new Car("Chrysler", "PTCruiser", 2005);
 
     public ArrayList<Car> fill = new ArrayList<Car>();
 
@@ -43,7 +42,7 @@ public class BasicDoubleLinkedListTest {
         linkedDouble.addToEnd(100.0);
         comparatorD = new DoubleComparator();
 
-        linkedCar= new BasicDoubleLinkedList<Car>();
+        linkedCar = new BasicDoubleLinkedList<Car>();
         linkedCar.addToEnd(b);
         linkedCar.addToEnd(c);
         comparatorCar = new CarComparator();
@@ -60,9 +59,9 @@ public class BasicDoubleLinkedListTest {
 
     @Test
     public void testGetSize() {
-        assertEquals(2,linkedString.getSize());
-        assertEquals(2,linkedDouble.getSize());
-        assertEquals(2,linkedCar.getSize());
+        assertEquals(2, linkedString.getSize());
+        assertEquals(2, linkedDouble.getSize());
+        assertEquals(2, linkedCar.getSize());
     }
 
     @Test
@@ -71,9 +70,9 @@ public class BasicDoubleLinkedListTest {
         linkedString.addToEnd("End");
         assertEquals("End", linkedString.getLast());
 
-        assertEquals(c,linkedCar.getLast());
+        assertEquals(c, linkedCar.getLast());
         linkedCar.addToEnd(d);
-        assertEquals(d,linkedCar.getLast());
+        assertEquals(d, linkedCar.getLast());
     }
 
     @Test
@@ -82,9 +81,9 @@ public class BasicDoubleLinkedListTest {
         linkedString.addToFront("Begin");
         assertEquals("Begin", linkedString.getFirst());
 
-        assertEquals(b,linkedCar.getFirst());
+        assertEquals(b, linkedCar.getFirst());
         linkedCar.addToFront(a);
-        assertEquals(a,linkedCar.getFirst());
+        assertEquals(a, linkedCar.getFirst());
     }
 
     @Test
@@ -93,9 +92,9 @@ public class BasicDoubleLinkedListTest {
         linkedString.addToFront("New");
         assertEquals("New", linkedString.getFirst());
 
-        assertEquals(b,linkedCar.getFirst());
+        assertEquals(b, linkedCar.getFirst());
         linkedCar.addToFront(a);
-        assertEquals(a,linkedCar.getFirst());
+        assertEquals(a, linkedCar.getFirst());
     }
 
     @Test
@@ -104,22 +103,21 @@ public class BasicDoubleLinkedListTest {
         linkedString.addToEnd("New");
         assertEquals("New", linkedString.getLast());
 
-        assertEquals(c,linkedCar.getLast());
+        assertEquals(c, linkedCar.getLast());
         linkedCar.addToEnd(d);
-        assertEquals(d,linkedCar.getLast());
+        assertEquals(d, linkedCar.getLast());
     }
 
     @Test
-    public void testToArrayList()
-    {
+    public void testToArrayList() {
         ArrayList<Car> list;
         linkedCar.addToFront(a);
         linkedCar.addToEnd(d);
         list = linkedCar.toArrayList();
-        assertEquals(a,list.get(0));
-        assertEquals(b,list.get(1));
-        assertEquals(c,list.get(2));
-        assertEquals(d,list.get(3));
+        assertEquals(a, list.get(0));
+        assertEquals(b, list.get(1));
+        assertEquals(c, list.get(2));
+        assertEquals(d, list.get(3));
     }
 
     @Test
@@ -174,17 +172,13 @@ public class BasicDoubleLinkedListTest {
         assertEquals(true, iteratorCar.hasNext());
         assertEquals(d, iteratorCar.next());
 
-        try{
+        try {
             //no more elements in list
             iteratorCar.next();
-            assertTrue("Did not throw a NoSuchElementException",false);
-        }
-        catch (NoSuchElementException e)
-        {
-            assertTrue("Successfully threw a NoSuchElementException",true);
-        }
-        catch (Exception e)
-        {
+            assertTrue("Did not throw a NoSuchElementException", false);
+        } catch (NoSuchElementException e) {
+            assertTrue("Successfully threw a NoSuchElementException", true);
+        } catch (Exception e) {
             assertTrue("Threw an exception other than the NoSuchElementException", false);
         }
 
@@ -206,17 +200,13 @@ public class BasicDoubleLinkedListTest {
         assertEquals(b, iteratorCar.previous());
         assertEquals(a, iteratorCar.previous());
 
-        try{
+        try {
             //no more elements in list
             iteratorCar.previous();
-            assertTrue("Did not throw a NoSuchElementException",false);
-        }
-        catch (NoSuchElementException e)
-        {
-            assertTrue("Successfully threw a NoSuchElementException",true);
-        }
-        catch (Exception e)
-        {
+            assertTrue("Did not throw a NoSuchElementException", false);
+        } catch (NoSuchElementException e) {
+            assertTrue("Successfully threw a NoSuchElementException", true);
+        } catch (Exception e) {
             assertTrue("Threw an exception other than the NoSuchElementException", false);
         }
 
@@ -234,17 +224,13 @@ public class BasicDoubleLinkedListTest {
         assertEquals(true, iteratorCar.hasNext());
         assertEquals(d, iteratorCar.next());
 
-        try{
+        try {
             //remove is not supported for the iterator
             iteratorCar.remove();
-            assertTrue("Did not throw a UnsupportedOperationException",false);
-        }
-        catch (UnsupportedOperationException e)
-        {
-            assertTrue("Successfully threw a UnsupportedOperationException",true);
-        }
-        catch (Exception e)
-        {
+            assertTrue("Did not throw a UnsupportedOperationException", false);
+        } catch (UnsupportedOperationException e) {
+            assertTrue("Successfully threw a UnsupportedOperationException", true);
+        } catch (Exception e) {
             assertTrue("Threw an exception other than the UnsupportedOperationException", false);
         }
 
@@ -280,17 +266,17 @@ public class BasicDoubleLinkedListTest {
         linkedCar.addToFront(a);
         assertEquals(a, linkedCar.getFirst());
         assertEquals(a, linkedCar.retrieveFirstElement());
-        assertEquals(b,linkedCar.getFirst());
+        assertEquals(b, linkedCar.getFirst());
         assertEquals(b, linkedCar.retrieveFirstElement());
-        assertEquals(c,linkedCar.getFirst());
+        assertEquals(c, linkedCar.getFirst());
 
         assertEquals("Hello", linkedString.getFirst());
         linkedString.addToFront("New");
         assertEquals("New", linkedString.getFirst());
         assertEquals("New", linkedString.retrieveFirstElement());
-        assertEquals("Hello",linkedString.getFirst());
+        assertEquals("Hello", linkedString.getFirst());
         assertEquals("Hello", linkedString.retrieveFirstElement());
-        assertEquals("World",linkedString.getFirst());
+        assertEquals("World", linkedString.getFirst());
 
     }
 
@@ -300,17 +286,16 @@ public class BasicDoubleLinkedListTest {
         linkedCar.addToEnd(d);
         assertEquals(d, linkedCar.getLast());
         assertEquals(d, linkedCar.retrieveLastElement());
-        assertEquals(c,linkedCar.getLast());
+        assertEquals(c, linkedCar.getLast());
 
         assertEquals("World", linkedString.getLast());
         linkedString.addToEnd("New");
         assertEquals("New", linkedString.getLast());
         assertEquals("New", linkedString.retrieveLastElement());
-        assertEquals("World",linkedString.getLast());
+        assertEquals("World", linkedString.getLast());
     }
 
-    private class StringComparator implements Comparator<String>
-    {
+    private class StringComparator implements Comparator<String> {
 
         @Override
         public int compare(String arg0, String arg1) {
@@ -320,8 +305,7 @@ public class BasicDoubleLinkedListTest {
 
     }
 
-    private class DoubleComparator implements Comparator<Double>
-    {
+    private class DoubleComparator implements Comparator<Double> {
 
         @Override
         public int compare(Double arg0, Double arg1) {
@@ -331,8 +315,7 @@ public class BasicDoubleLinkedListTest {
 
     }
 
-    private class CarComparator implements Comparator<Car>
-    {
+    private class CarComparator implements Comparator<Car> {
 
         @Override
         public int compare(Car arg0, Car arg1) {
@@ -342,29 +325,31 @@ public class BasicDoubleLinkedListTest {
 
     }
 
-    private class Car{
+    private class Car {
         String make;
         String model;
         int year;
 
-        public Car(String make, String model, int year){
+        public Car(String make, String model, int year) {
             this.make = make;
             this.model = model;
             this.year = year;
         }
 
-        public String getMake(){
+        public String getMake() {
             return make;
         }
-        public String getModel(){
+
+        public String getModel() {
             return model;
         }
-        public int getYear(){
+
+        public int getYear() {
             return year;
         }
 
         public String toString() {
-            return (getMake()+" "+getModel()+" "+getYear());
+            return (getMake() + " " + getModel() + " " + getYear());
         }
     }
 }

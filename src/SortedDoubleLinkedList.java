@@ -1,3 +1,7 @@
+
+
+
+
 public class SortedDoubleLinkedList<T> extends BasicDoubleLinkedList<T> {
 
     /**
@@ -22,6 +26,7 @@ public class SortedDoubleLinkedList<T> extends BasicDoubleLinkedList<T> {
      */
     public SortedDoubleLinkedList<T> add(T data) {
 
+        return null;
     }
 
 
@@ -59,7 +64,7 @@ public class SortedDoubleLinkedList<T> extends BasicDoubleLinkedList<T> {
      */
     @Override
     public java.util.ListIterator<T> iterator(){
-
+       return super.iterator();
     }
 
     /**
@@ -71,7 +76,8 @@ public class SortedDoubleLinkedList<T> extends BasicDoubleLinkedList<T> {
      */
     public SortedDoubleLinkedList<T> remove(T data,
                                             java.util.Comparator<T> comparator){
-
+        super.remove(data, comparator);
+        return this;
     }
 
 }

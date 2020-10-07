@@ -1,17 +1,8 @@
-
-
-
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.ListIterator;
-import java.util.NoSuchElementException;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class BasicDoubleLinkedList_GFA_Test {
     BasicDoubleLinkedList<String> linkedString;
@@ -31,6 +22,6 @@ public class BasicDoubleLinkedList_GFA_Test {
 
     @Test
     public void testGetSize() {
-        assertEquals(1,linkedString.getSize());
+        assertEquals(1, linkedString.getSize());
     }
 }
