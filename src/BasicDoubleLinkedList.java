@@ -8,8 +8,6 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
     protected Node firstNode;
     protected Node lastNode;
     int size; //the number of entries
-    int counterNext = 0;
-    int counterLast = 0;
 
     public BasicDoubleLinkedList() {
 
@@ -37,14 +35,12 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
      * @return reference to the current object
      */
     public BasicDoubleLinkedList<T> addToEnd(T data) {
-        Node newNode = new Node(data, firstNode, lastNode);
+        Node newNode = new Node(data, null, lastNode);
         if (size == 0) {
             firstNode = lastNode = newNode;
         } else
             lastNode.setNextNode(newNode);
-
         lastNode = newNode;
-        firstNode.setPreviousNode(lastNode);
         size++;
         return this;
     }
@@ -56,14 +52,12 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
      * @return reference to the current object
      */
     public BasicDoubleLinkedList<T> addToFront(T data) {
-        Node newNode = new Node(data, firstNode, lastNode);
+        Node newNode = new Node(data, firstNode, null);
         if (size == 0) {
             firstNode = lastNode = newNode;
         } else
             firstNode.setPreviousNode(newNode);
-
         firstNode = newNode;
-        lastNode.setNextNode(firstNode);
         size++;
         return this;
     }
@@ -129,17 +123,17 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
             targetNode = targetNode.getNextNode();
         }
 
-        Node beforeTarget = targetNode.getPreviousNode();
-        Node afterTarget = targetNode.getNextNode();
 
         if (targetNode == firstNode) {
-            firstNode = afterTarget;
+            firstNode = firstNode.getNextNode();
         } else if (targetNode == lastNode) {
-            lastNode = beforeTarget;
+            lastNode = lastNode.getPreviousNode();
+        } else {
+            Node beforeTarget = targetNode.getPreviousNode();
+            Node afterTarget = targetNode.getNextNode();
+            beforeTarget.setNextNode(afterTarget);
+            afterTarget.setPreviousNode(beforeTarget);
         }
-
-        beforeTarget.setNextNode(afterTarget);
-        afterTarget.setPreviousNode(beforeTarget);
 
         size--;
         return this;
@@ -158,7 +152,6 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
         secondNode.setPreviousNode(lastNode);
         firstNode = secondNode;
         size--;
-
         return dataToReturn;
     }
 
@@ -187,7 +180,7 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
         ArrayList<T> arrayList = new ArrayList<>();
         Node dummyNode = firstNode;
 
-        for (int i = 0; i <= size; i++) {
+        for (int i = 0; i < size; i++) {
             arrayList.add(dummyNode.getData());
             dummyNode = dummyNode.getNextNode();
         }
@@ -259,13 +252,6 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
         @Override
         public T next() {
             T result;
-
-            if (nextNode == firstNode && counterNext == 0) {
-                counterNext++;
-            } else if (nextNode == firstNode && counterNext > 0) {
-                throw new NoSuchElementException();
-            }
-
             if (hasNext()) {
                 result = nextNode.getData();
                 previousNode = nextNode;
@@ -284,13 +270,6 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
         @Override
         public T previous() {
             T result;
-
-            if (previousNode == lastNode && counterLast == 0) {
-                counterLast++;
-            } else if (previousNode == lastNode && counterLast > 0) {
-                throw new NoSuchElementException();
-            }
-
             if (hasPrevious()) {
                 result = previousNode.getData();
                 nextNode = previousNode;
