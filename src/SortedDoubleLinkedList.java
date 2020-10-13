@@ -25,7 +25,6 @@ public class SortedDoubleLinkedList<T> extends BasicDoubleLinkedList<T> {
      * @return a reference to the current object
      */
     public SortedDoubleLinkedList<T> add(T data) {
-
         return null;
     }
 
