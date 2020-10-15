@@ -176,7 +176,7 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
      *
      * @return an arraylist of the items in the list
      */
-    public java.util.ArrayList<T> toArrayList() {
+    public ArrayList<T> toArrayList() {
         ArrayList<T> arrayList = new ArrayList<>();
         Node dummyNode = firstNode;
 
@@ -192,7 +192,7 @@ public class BasicDoubleLinkedList<T> implements Iterable<T> {
     /**
      * Node inner class
      */
-    private class Node {
+    protected class Node {
 
         private T data;
         private Node next;

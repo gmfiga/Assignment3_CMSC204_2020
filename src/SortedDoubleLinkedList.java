@@ -1,16 +1,16 @@
-
-
-
+import java.util.Comparator;
 
 public class SortedDoubleLinkedList<T> extends BasicDoubleLinkedList<T> {
+
+    Comparator<T> comparator = null;
 
     /**
      * Creates an empty list that is associated with the specified comparator.
      *
      * @param comparator2 - Comparator to compare data elements
      */
-    SortedDoubleLinkedList(java.util.Comparator<T> comparator2) {
-
+    SortedDoubleLinkedList(Comparator<T> comparator2) {
+        comparator = comparator2;
     }
 
 
@@ -25,7 +25,42 @@ public class SortedDoubleLinkedList<T> extends BasicDoubleLinkedList<T> {
      * @return a reference to the current object
      */
     public SortedDoubleLinkedList<T> add(T data) {
-        return null;
+        Node newNode = new Node(data, null, null);
+        if (size == 0) {
+            firstNode = lastNode = newNode;
+        } else {
+
+            if (comparator.compare(data, firstNode.getData()) <= 0) {
+                newNode.setNextNode(firstNode);
+                firstNode.setPreviousNode(newNode);
+                firstNode = newNode;
+            }
+
+            else if (comparator.compare(data, lastNode.getData()) >= 0) {
+                lastNode.setNextNode(newNode);
+                newNode.setPreviousNode(lastNode);
+                lastNode = newNode;
+            }
+
+            else {
+
+                Node nextNode = firstNode.getNextNode();
+                Node previousNode = firstNode;
+
+                while (comparator.compare(data, nextNode.getData()) > 0) {
+                    previousNode = nextNode;
+                    nextNode = nextNode.getNextNode();
+                }
+
+                previousNode.setNextNode(newNode);
+                newNode.setPreviousNode(previousNode);
+                newNode.setNextNode(nextNode);
+                nextNode.setPreviousNode(newNode);
+
+            }
+        }
+        size++;
+        return this;
     }
 
 
@@ -39,7 +74,7 @@ public class SortedDoubleLinkedList<T> extends BasicDoubleLinkedList<T> {
      */
     @Override
     public BasicDoubleLinkedList<T> addToEnd(T data) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Invalid operation for sorted list");
     }
 
 
@@ -53,7 +88,7 @@ public class SortedDoubleLinkedList<T> extends BasicDoubleLinkedList<T> {
      */
     @Override
     public BasicDoubleLinkedList<T> addToFront(T data) throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Invalid operation for sorted list");
     }
 
 
@@ -73,8 +108,7 @@ public class SortedDoubleLinkedList<T> extends BasicDoubleLinkedList<T> {
      * @param comparator - the comparator to determine equality of data elements
      * @return data element or null
      */
-    public SortedDoubleLinkedList<T> remove(T data,
-                                            java.util.Comparator<T> comparator){
+    public SortedDoubleLinkedList<T> remove(T data, Comparator<T> comparator){
         super.remove(data, comparator);
         return this;
     }
